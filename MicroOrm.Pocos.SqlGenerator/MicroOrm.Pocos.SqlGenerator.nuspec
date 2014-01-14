@@ -6,10 +6,10 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <projectUrl>https://github.com/Yoinbol/AutoProxy</projectUrl>
+    <projectUrl>https://github.com/Yoinbol/MicroOrm.Pocos.SqlGenerator</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <tags>Micro-ORM Dapper OrmLite SQL</tags>
+    <tags>Micro-ORM Dapper OrmLite SQL .NET</tags>
     <releaseNotes></releaseNotes>
   </metadata>
 </package>
