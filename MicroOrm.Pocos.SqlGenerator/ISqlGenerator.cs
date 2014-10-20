@@ -30,6 +30,11 @@ namespace MicroOrm.Pocos.SqlGenerator
         /// <summary>
         /// 
         /// </summary>
+        string Scheme { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         IEnumerable<PropertyMetadata> KeyProperties { get; }
 
         /// <summary>

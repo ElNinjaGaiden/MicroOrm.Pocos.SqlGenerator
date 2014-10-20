@@ -20,13 +20,16 @@ Metadata attributes
 -------------------
 This is the set of attributes to specify POCOs metadata. All of them are under the "MicroOrm.Pocos.SqlGenerator.Attributes" namespace:
 
-###    [KeyProperty]
+###	[KeyProperty]
 For property or properties that compose the primary key of the table. If Identity optional parameter is not specified, its default value will be false.	
 Tables with identity primary keys need to set the extra parameter "Identity" to true and only one single property might be decorated with this attribute, like this `[KeyProperty(Identity = true)]`.  
 
 ###	[StoredAs("<value>table or column name<value>")]
 For classes or properties that don't match name with its corresponding table or column.	
 Use this attribute to specify the table or column name that the SQL Generator has to use.	
+
+###	[Scheme("<value>table scheme</value>")]
+Use this attribute to decorate those tables that does not belong to the default database scheme.  
 
 ###	[NonStored]
 For "logical" properties that does not have a corresponding column and have to be ignored by the SQL Generator.	

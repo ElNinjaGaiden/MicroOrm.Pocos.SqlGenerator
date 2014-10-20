@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\Scheme.cs" />
     <Compile Include="Attributes\StoredAs.cs" />
     <Compile Include="Attributes\Deleted.cs" />
     <Compile Include="Attributes\KeyProperty.cs" />
