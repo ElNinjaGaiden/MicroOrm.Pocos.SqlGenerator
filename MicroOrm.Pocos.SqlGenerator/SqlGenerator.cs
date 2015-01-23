@@ -33,7 +33,9 @@ namespace MicroOrm.Pocos.SqlGenerator
             this.Scheme = schemeAttribute != null ? schemeAttribute.Value : "dbo";
 
             //Load all the "primitive" entity properties
-            IEnumerable<PropertyInfo> props = entityType.GetProperties().Where(p => p.PropertyType.IsValueType || p.PropertyType.Name.Equals("String", StringComparison.InvariantCultureIgnoreCase));
+            IEnumerable<PropertyInfo> props = entityType.GetProperties().Where(p => p.PropertyType.IsValueType || 
+                                                                                    p.PropertyType.Name.Equals("String", StringComparison.InvariantCultureIgnoreCase) || 
+                                                                                    p.PropertyType.Name.Equals("Byte[]", StringComparison.InvariantCultureIgnoreCase));
 
             //Filter the non stored properties
             this.BaseProperties = props.Where(p => !p.GetCustomAttributes<NonStored>().Any()).Select(p => new PropertyMetadata(p));
