@@ -218,7 +218,7 @@ namespace MicroOrm.Pocos.SqlGenerator
             bool containsFilter = (filterProperties != null && filterProperties.Any());
 
             if (containsFilter)
-                sqlBuilder.AppendFormat(" WHERE {0} ", this.ToWhere(filterProperties));
+                sqlBuilder.AppendFormat(" WHERE {0} ", this.ToWhere(filterProperties, filters));
 
             //Evaluates if this repository implements logical delete
             if (this.LogicalDelete)
@@ -274,16 +274,28 @@ namespace MicroOrm.Pocos.SqlGenerator
         /// </summary>
         /// <param name="properties"></param>
         /// <returns></returns>
-        private string ToWhere(IEnumerable<string> properties)
+        private string ToWhere(IEnumerable<string> properties, object filters)
         {
             return string.Join(" AND ", properties.Select(p => {
 
                 var propertyMetadata = this.BaseProperties.FirstOrDefault(pm => pm.Name.Equals(p, StringComparison.InvariantCultureIgnoreCase));
 
-                if(propertyMetadata != null)
-                    return string.Format("[{0}].[{1}] = @{2}", this.TableName, propertyMetadata.ColumnName, propertyMetadata.Name);
+                var columnName = p;
+                var propertyName = p;
+                
+                if (propertyMetadata != null)
+                {
+                    columnName = propertyMetadata.ColumnName;
+                    propertyName = propertyMetadata.Name;
+                }
 
-                return string.Format("[{0}].[{1}] = @{2}", this.TableName, p, p);
+                if (filters.GetType().GetProperty(propertyMetadata.Name).GetValue(filters, null) == null)
+                {
+                    return string.Format("[{0}].[{1}] IS NULL", this.TableName, columnName);
+                }
+                else {
+                    return string.Format("[{0}].[{1}] = @{2}", this.TableName, columnName, propertyName);
+                }
 
             }));
         }
