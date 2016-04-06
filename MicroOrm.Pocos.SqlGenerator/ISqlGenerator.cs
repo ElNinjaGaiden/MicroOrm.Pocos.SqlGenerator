@@ -72,7 +72,7 @@ namespace MicroOrm.Pocos.SqlGenerator
         /// </summary>
         /// <param name="filters"></param>
         /// <returns></returns>
-        string GetSelect(object filters);
+        string GetSelect(object filters, int? rowCount = null);
 
         /// <summary>
         /// 

@@ -195,8 +195,9 @@ namespace MicroOrm.Pocos.SqlGenerator
         /// 
         /// </summary>
         /// <param name="filters"></param>
+        /// <param name="rowCount">Maximum number of rows to return</param>
         /// <returns></returns>
-        public virtual string GetSelect(object filters)
+        public virtual string GetSelect(object filters, int? rowCount = null)
         {
             //Projection function
             Func<PropertyMetadata, string> projectionFunction = (p) =>
@@ -208,10 +209,20 @@ namespace MicroOrm.Pocos.SqlGenerator
             };
 
             var sqlBuilder = new StringBuilder();
-            sqlBuilder.AppendFormat("SELECT {0} FROM [{1}].[{2}] WITH (NOLOCK)",
+
+            var rowLimitSql = string.Empty;
+
+            if (rowCount.HasValue)
+            {
+                rowLimitSql = string.Format("TOP {0} ", rowCount);
+            }
+
+            sqlBuilder.AppendFormat("SELECT {0}{1} FROM [{2}].[{3}] WITH (NOLOCK)",
+                                    rowLimitSql,
                                     string.Join(", ", this.BaseProperties.Select(projectionFunction)),
                                     this.Scheme,
-                                    this.TableName);
+                                    this.TableName
+                                    );
 
             //Properties of the dynamic filters object
             var filterProperties = filters.GetType().GetProperties().Select(p => p.Name);

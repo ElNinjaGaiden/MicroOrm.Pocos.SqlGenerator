@@ -26,6 +26,26 @@ namespace MicroOrm.Pocos.SqlGenerator.Tests
 
             Assert.IsTrue(sql.Contains("WHERE [MyTable].[Disabled] = @Disabled"), sql);
         }
+
+        [TestMethod]
+        public void GetWhere_Limit1Result()
+        {
+            var sqlGenerator = new SqlGenerator<MyObject>();
+
+            var sql = sqlGenerator.GetSelect(new { Disabled = new DateTime(2016, 02, 04, 0, 0, 0) }, 1);
+
+            Assert.IsTrue(sql.StartsWith("SELECT TOP 1 "), sql);
+        }
+
+        [TestMethod]
+        public void GetWhere_NoLimitResult()
+        {
+            var sqlGenerator = new SqlGenerator<MyObject>();
+
+            var sql = sqlGenerator.GetSelect(new { Disabled = new DateTime(2016, 02, 04, 0, 0, 0) });
+
+            Assert.IsTrue(sql.StartsWith("SELECT [MyTable].[MyObjectId]"), sql);
+        }
     }
 
     [StoredAs("MyTable")]
