@@ -1,5 +1,6 @@
 ﻿using MicroOrm.Pocos.SqlGenerator.Attributes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -300,9 +301,15 @@ namespace MicroOrm.Pocos.SqlGenerator
                     propertyName = propertyMetadata.Name;
                 }
 
-                if (filters.GetType().GetProperty(propertyMetadata.Name).GetValue(filters, null) == null)
+                var values = filters.GetType().GetProperty(propertyMetadata.Name).GetValue(filters, null);
+
+                if (values == null)
                 {
                     return string.Format("[{0}].[{1}] IS NULL", this.TableName, columnName);
+                }
+                else if(values is IEnumerable)
+                {
+                    return string.Format("[{0}].[{1}] IN @{2}", this.TableName, columnName, propertyName);
                 }
                 else {
                     return string.Format("[{0}].[{1}] = @{2}", this.TableName, columnName, propertyName);

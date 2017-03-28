@@ -46,6 +46,15 @@ namespace MicroOrm.Pocos.SqlGenerator.Tests
 
             Assert.IsTrue(sql.StartsWith("SELECT [MyTable].[MyObjectId]"), sql);
         }
+
+        [TestMethod]
+        public void GetWhere_TestIEnumerableFilter()
+        {
+            var sqlGenerator = new SqlGenerator<MyObject>();
+            var sql = sqlGenerator.GetSelect(new { Description = new[] { "a", "b", "c" } });
+
+            Assert.IsTrue(sql.Contains("WHERE [MyTable].[Description] IN @Description"));
+        }
     }
 
     [StoredAs("MyTable")]
