@@ -307,7 +307,7 @@ namespace MicroOrm.Pocos.SqlGenerator
                 {
                     return string.Format("[{0}].[{1}] IS NULL", this.TableName, columnName);
                 }
-                else if(values is IEnumerable)
+                else if((values as IEnumerable) != null && !(values is string))
                 {
                     return string.Format("[{0}].[{1}] IN @{2}", this.TableName, columnName, propertyName);
                 }
