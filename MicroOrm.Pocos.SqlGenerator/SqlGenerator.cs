@@ -286,7 +286,7 @@ namespace MicroOrm.Pocos.SqlGenerator
         /// </summary>
         /// <param name="properties"></param>
         /// <returns></returns>
-        private string ToWhere(IEnumerable<string> properties, object filters)
+        public virtual string ToWhere(IEnumerable<string> properties, object filters)
         {
             return string.Join(" AND ", properties.Select(p => {
 
