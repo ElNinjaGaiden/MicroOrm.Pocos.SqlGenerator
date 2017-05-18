@@ -301,7 +301,8 @@ namespace MicroOrm.Pocos.SqlGenerator
                     propertyName = propertyMetadata.Name;
                 }
 
-                var values = filters.GetType().GetProperty(propertyMetadata.Name).GetValue(filters, null);
+                var prop = filters.GetType().GetProperty(propertyMetadata.Name, BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+                var values = prop.GetValue(filters, null);
 
                 if (values == null)
                 {

@@ -6,7 +6,7 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <projectUrl>https://github.com/Yoinbol/MicroOrm.Pocos.SqlGenerator</projectUrl>
+    <projectUrl>https://github.com/ElNinjaGaiden/MicroOrm.Pocos.SqlGenerator</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <tags>Micro-ORM Dapper OrmLite SQL .NET</tags>
